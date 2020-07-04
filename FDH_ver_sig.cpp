@@ -59,8 +59,6 @@ mpz_class power1_(mpz_class x, mpz_class y, mpz_class p)
 }
 
 void FDH_ver_signature_(FILE *ptr){
-    
-   
     int length;
     fscanf(ptr,"%d",&length);
     //cout<<"LENGTH"<<length;
@@ -68,37 +66,24 @@ void FDH_ver_signature_(FILE *ptr){
     fscanf(ptr,"%s",temp__);
     mpz_class sig_hash;
     sig_hash =temp__;
-    
     //cout<<"SIG"<<sig_hash;
     fscanf(ptr,"%d",&length);
-   
     char temp_b[length];
     fscanf(ptr,"%s",temp_b);
     mpz_class b;
     b =temp_b;
-    
-    
-    
     fscanf(ptr,"%d",&length);
-    
     char temp_n[length];
     //cout<<"HAHAHHAH"<<length;
     fscanf(ptr,"%s",temp_n);
     mpz_class n;
     n =temp_n;
-    
     //cout<<"N is:"<<n;
     fclose(ptr);
     std::ifstream ifs("SampleTextFile_10kb.txt");
     std::string message( (std::istreambuf_iterator<char>(ifs) ),
                         (std::istreambuf_iterator<char>()    ) );
-  
-   //
-   // cout<<"hashsig"<<temp__;
-   
- //   fscanf(ptr, "%s",temp__);
-   
-   // cout<<message;
+   // cout<<"hashsig"<<temp__;// fscanf(ptr, "%s",temp__);// cout<<message;
     string final = "";
     std::stringstream stream;
     final = FDH_(message);   //function for full domain hash
@@ -107,8 +92,6 @@ void FDH_ver_signature_(FILE *ptr){
     stream<<final;
     stream>>std::hex>>hash_int; //used to store the string of hex as int into gmp class
     // cout<<"hash int:"<<hash_int<<'\n';
-    
-    
     mpz_class sig_hash_ver = power1_(sig_hash, b, n);
     //sig_hash_ver= sig_hash_ver^r_h;
     if(sig_hash_ver==hash_int){

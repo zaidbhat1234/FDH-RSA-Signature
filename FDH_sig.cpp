@@ -50,13 +50,11 @@ string SHA256_(string data)
     return string((char*)abDigest);
 }
 mpz_class power_1(mpz_class x, mpz_class y, mpz_class p)
-{
-    mpz_class res = 1;      // Initialize result
+{   mpz_class res = 1;      // Initialize result
     x = x % p;  // Update x if it is more than or
     // equal to p
     while (y > 0)
-    {
-        // If y is odd, multiply x with result
+    {  // If y is odd, multiply x with result
         if (y%2!=0)
             res = (res*x) % p;
         // y must be even now
@@ -65,30 +63,22 @@ mpz_class power_1(mpz_class x, mpz_class y, mpz_class p)
     }
     return res;
 }
-
-
-
 string FDH_(string message){
-    
-     FILE *ptrrsa = fopen("rsapub.txt", "r");
+    FILE *ptrrsa = fopen("rsapub.txt", "r");
     int l=0;
     fscanf(ptrrsa, "%d",&l);
     //cout<<"LENGTH OF CYCLES= "<<l;
     fclose(ptrrsa);
     l=l/77;
    // cout<<"LENGTH OF CYCLES= "<<l;
-    
     string c[16]={"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
     string final="";
     std::stringstream stream;
     string output;
     int h;
     for (h=0; h<l; h++) {
-        
         message.append(c[h]);
         //cout<<message;
-        
-        
         CryptoPP::SHA256 hash;
         CryptoPP::byte digest[ CryptoPP::SHA256::DIGESTSIZE ];
         // string message = "abcdefgh";         //the message that needs to be hashed to 256 bits.
